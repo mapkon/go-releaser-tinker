@@ -28,7 +28,7 @@ jobs:
       run: go test -v ./...
 
     - name: Install
-      run: go install ./cmd/saml2aws
+      run: go install ./src
 
   linting:
     name: lint
