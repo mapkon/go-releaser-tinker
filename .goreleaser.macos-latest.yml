@@ -1,0 +1,32 @@
+---
+project_name: go-releaser-tinker
+
+builds:
+- main: ./src/main.go
+  binary: go-releaser-tinker
+  flags:
+    - -trimpath
+    - -v
+  ldflags:
+    - -s -w -X main.Version={{.Version}} -X main.commit={{.Commit}} -X main.date={{.Date}}
+  goos:
+    - darwin
+  goarch:
+    - amd64
+    - arm64
+    - arm
+  overrides:
+    - goos: linux
+      goarch: amd64
+      goamd64: v1
+      tags:
+        - hidraw
+      env:
+        - CGO_ENABLED=1
+archives:
+  - format: tar.gz
+    wrap_in_directory: false
+    # remove README and LICENSE
+    files:
+      - LICENSE.md
+      - README.md
